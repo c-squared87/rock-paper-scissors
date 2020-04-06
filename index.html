@@ -1,4 +1,14 @@
 <script>
+    var score_Player = 0;
+    var score_Computer = 0;
+
+    function NewGame() {
+        score_Player = 0;
+        score_Computer = 0;
+
+        GameCheck();
+    }
+
     function ComputerPlay() {
 
         let _rand = Math.floor(Math.random() * Math.floor(3));
@@ -50,12 +60,34 @@
     // TODO:
     /// HEADS UP THIS PASSING AROUND OF THE SAME PARAMS IS CLUMSY AND DUMB BUT LETS GET THIS WORKING FIRST THEN REDO IT.
     function PlayerLoseRound(computerSelection, playerSelection) {
+
         console.log("You lost! : COMPU : " + computerSelection + " YOU : " + playerSelection);
 
+        score_Computer++;
+        GameCheck();
     }
 
     function PlayerWinRound(computerSelection, playerSelection) {
         console.log("You won! : COMPU : " + computerSelection + " YOU : " + playerSelection);
+
+        score_Player++;
+        GameCheck();
+
+    }
+
+    function GameCheck() {
+
+        console.log("PLAYER : " + score_Player + " COMP : " + score_Computer);
+
+        if (score_Player >= 5 || score_Computer >= 5) {
+            if (score_Player > score_Computer) {
+                console.log("Player won!");
+            } else {
+                console.log("Computer won!");
+            }
+            NewGame();
+        }
+
     }
 
 
@@ -64,6 +96,7 @@
         console.log(PlayRound(ComputerPlay(), selection));
     }
 </script>
+
 <h1> RPS. </h1>
 
 <div id="player-buttons">
