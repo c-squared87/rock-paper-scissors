@@ -1,0 +1,25 @@
+<script>
+    function ComputerPlay() {
+        return 'rock'; // This will return 'rock', 'paper', or 'scissors'
+    }
+
+    // This is called on the players click - and runs the game.
+    function PlayRound(computerSelection, playerSelection) {
+        if (computerSelection == playerSelection) {
+            return "equal";
+        } else {
+            return "Not equal";
+        }
+    }
+
+    function PlayerSelection(selection) {
+        console.log(PlayRound(ComputerPlay(), selection));
+    }
+</script>
+<h1> RPS. </h1>
+
+<div id="player-buttons">
+    <button type="button" onclick="PlayerSelection('rock')">Rock</button>
+    <button type="button" onclick="PlayerSelection('paper')">Paper</button>
+    <button type="button" onclick="PlayerSelection('scissors')">Scissors</button>
+</div>
