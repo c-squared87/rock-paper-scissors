@@ -1,17 +1,65 @@
 <script>
     function ComputerPlay() {
-        return 'rock'; // This will return 'rock', 'paper', or 'scissors'
-    }
 
-    // This is called on the players click - and runs the game.
-    function PlayRound(computerSelection, playerSelection) {
-        if (computerSelection == playerSelection) {
-            return "equal";
-        } else {
-            return "Not equal";
+        let _rand = Math.floor(Math.random() * Math.floor(3));
+
+        switch (_rand) {
+            case 0:
+                return 'rock';
+            case 1:
+                return 'paper';
+            case 2:
+                return 'scissors';
         }
     }
 
+    function PlayRound(computerSelection, playerSelection) {
+
+        if (computerSelection == playerSelection) {
+            return "tie";
+        }
+
+        switch (playerSelection) {
+
+            case 'rock':
+                if (computerSelection == 'paper') {
+                    PlayerLoseRound(computerSelection, playerSelection);
+                    return;
+                }
+                PlayerWinRound(computerSelection, playerSelection);
+                return;
+
+            case 'paper':
+                if (computerSelection == 'scissors') {
+                    PlayerLoseRound(computerSelection, playerSelection);
+                    return;
+                }
+                PlayerWinRound(computerSelection, playerSelection);
+                return;
+
+            case 'scissors':
+                if (computerSelection == 'rock') {
+                    PlayerLoseRound(computerSelection, playerSelection);
+                    return;
+                }
+                PlayerWinRound(computerSelection, playerSelection);
+                return;
+        }
+    }
+
+    // TODO:
+    /// HEADS UP THIS PASSING AROUND OF THE SAME PARAMS IS CLUMSY AND DUMB BUT LETS GET THIS WORKING FIRST THEN REDO IT.
+    function PlayerLoseRound(computerSelection, playerSelection) {
+        console.log("You lost! : COMPU : " + computerSelection + " YOU : " + playerSelection);
+
+    }
+
+    function PlayerWinRound(computerSelection, playerSelection) {
+        console.log("You won! : COMPU : " + computerSelection + " YOU : " + playerSelection);
+    }
+
+
+    // This is called on the players click - and runs the game.
     function PlayerSelection(selection) {
         console.log(PlayRound(ComputerPlay(), selection));
     }
@@ -19,7 +67,10 @@
 <h1> RPS. </h1>
 
 <div id="player-buttons">
+
     <button type="button" onclick="PlayerSelection('rock')">Rock</button>
     <button type="button" onclick="PlayerSelection('paper')">Paper</button>
     <button type="button" onclick="PlayerSelection('scissors')">Scissors</button>
+
+    <button type="button" onclick="">Test Button</button>
 </div>
