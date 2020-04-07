@@ -52,28 +52,9 @@ Feel free to create more “helper” functions if you think it would be useful.
 
     }
 
-    function Game() {
-
-        InitNewGame();
-
-        for (var i = 0; i < 5; i++) {
-
-            // TODO: Rework this later so that input pulls from .charAt(0) so we arent passing full strings around all the time.
-            let _input = prompt('What do you throw?', 'rock, paper, or scissors');
-
-            // _input.toLowerCase();
-
-            PlayRound(ComputerPlay(), _input);
-            /*
-            get player input
-            play round
-            adjust score
-            ui change
-            check for game end.
-            */
-        }
-
-        console.log("P : " + score_Player + " C : " + score_Computer);
+    // This is called on the players click - and runs the game.
+    function PlayerSelection(selection) {
+        console.log(PlayRound(ComputerPlay(), selection));
     }
 
     function ComputerPlay() {
@@ -93,79 +74,101 @@ Feel free to create more “helper” functions if you think it would be useful.
 
     function PlayRound(computerSelection, playerSelection) {
 
-        // Checks for valid input.
-        // if (playerSelection != 'rock' || playerSelection != 'paper' || playerSelection != 'scissors') {
-        //     PlayerLoseRound(computerSelection, playerSelection);
-        //     return;
-        // }
+        var _playerSelection = playerSelection;
 
-        // If same.
-        if (computerSelection == playerSelection) {
-            return "tie";
+        // Checks for valid input and catches typographical errors.
+        if (_playerSelection != 'rock' || _playerSelection != 'paper' || _playerSelection != 'scissors') {
+
+            if (_playerSelection.charAt(0) == 'r') {
+                _playerSelection = 'rock';
+            } else if (_playerSelection.charAt(0) == 'p') {
+                _playerSelection = 'paper';
+            } else if (_playerSelection.charAt(0) == 's') {
+                _playerSelection = 'scissors';
+            } else {
+                PlayerLoseRound(computerSelection, _playerSelection);
+            }
+
         }
 
-        // If different; This is clumsy.
-        switch (playerSelection) {
+        // If same.
+        if (computerSelection == _playerSelection) {
+            console.log("tie");
+            return;
+        }
+
+
+        switch (_playerSelection) {
 
             case 'rock':
                 if (computerSelection == 'paper') {
-                    PlayerLoseRound(computerSelection, playerSelection);
+                    PlayerLoseRound(computerSelection, _playerSelection);
                     return;
                 }
-                PlayerWinRound(computerSelection, playerSelection);
+                PlayerWinRound(computerSelection, _playerSelection);
                 return;
 
             case 'paper':
                 if (computerSelection == 'scissors') {
-                    PlayerLoseRound(computerSelection, playerSelection);
+                    PlayerLoseRound(computerSelection, _playerSelection);
                     return;
                 }
-                PlayerWinRound(computerSelection, playerSelection);
+                PlayerWinRound(computerSelection, _playerSelection);
                 return;
 
             case 'scissors':
                 if (computerSelection == 'rock') {
-                    PlayerLoseRound(computerSelection, playerSelection);
+                    PlayerLoseRound(computerSelection, _playerSelection);
                     return;
                 }
-                PlayerWinRound(computerSelection, playerSelection);
+                PlayerWinRound(computerSelection, _playerSelection);
                 return;
         }
     }
 
-    // TODO:
-    /// HEADS UP THIS PASSING AROUND OF THE SAME PARAMS IS CLUMSY AND DUMB BUT LETS GET THIS WORKING FIRST THEN REDO IT.
     function PlayerLoseRound(computerSelection, playerSelection) {
         console.log("You lost! : COMPU : " + computerSelection + " YOU : " + playerSelection);
         score_Computer++;
-        // GameCheck();
     }
 
     function PlayerWinRound(computerSelection, playerSelection) {
         console.log("You won! : COMPU : " + computerSelection + " YOU : " + playerSelection);
         score_Player++;
-        // GameCheck();
     }
 
-    function GameCheck() {
+    function Game() {
 
-        // console.log("PLAYER : " + score_Player + " COMP : " + score_Computer);
+        InitNewGame();
 
-        // if (score_Player >= 5 || score_Computer >= 5) {
-        //     if (score_Player > score_Computer) {
-        //         console.log("Player won!");
-        //     } else {
-        //         console.log("Computer won!");
-        //     }
-        //     InitNewGame();
-        // }
+        for (var i = 0; i < 5; i++) {
 
+            let _input = prompt('What do you throw?', 'rock, paper, or scissors');
+
+            _input = _input.toLowerCase();
+
+            // console.log("you typed " + _input);
+
+            PlayRound(ComputerPlay(), _input);
+        }
+
+        DisplayFinalScore();
     }
 
 
-    // This is called on the players click - and runs the game.
-    function PlayerSelection(selection) {
-        console.log(PlayRound(ComputerPlay(), selection));
+
+    function DisplayFinalScore() {
+
+        var _str = "Player : " + score_Player + " Computer : " + score_Computer;
+
+        if (score_Player == score_Computer) {
+            prompt("It's a tie! " + _str);
+        }
+
+        if (score_Player > score_Computer) {
+            prompt("Player wins! " + _str);
+        } else {
+            prompt("Computer wins! " + _str);
+        }
     }
 </script>
 
