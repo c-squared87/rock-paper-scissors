@@ -48,6 +48,8 @@ Feel free to create more “helper” functions if you think it would be useful.
         score_Player = 0;
         score_Computer = 0;
 
+        prompt('Enter "Rock", "Paper", or "Scissors" to play!');
+
     }
 
     function Game() {
@@ -59,7 +61,7 @@ Feel free to create more “helper” functions if you think it would be useful.
             // TODO: Rework this later so that input pulls from .charAt(0) so we arent passing full strings around all the time.
             let _input = prompt('What do you throw?', 'rock, paper, or scissors');
 
-            _input.toLowerCase();
+            // _input.toLowerCase();
 
             PlayRound(ComputerPlay(), _input);
             /*
@@ -92,10 +94,10 @@ Feel free to create more “helper” functions if you think it would be useful.
     function PlayRound(computerSelection, playerSelection) {
 
         // Checks for valid input.
-        if (playerSelection != 'rock' || playerSelection != 'paper' || playerSelection != 'scissors') {
-            PlayerLoseRound(computerSelection, playerSelection);
-            return;
-        }
+        // if (playerSelection != 'rock' || playerSelection != 'paper' || playerSelection != 'scissors') {
+        //     PlayerLoseRound(computerSelection, playerSelection);
+        //     return;
+        // }
 
         // If same.
         if (computerSelection == playerSelection) {
@@ -134,20 +136,15 @@ Feel free to create more “helper” functions if you think it would be useful.
     // TODO:
     /// HEADS UP THIS PASSING AROUND OF THE SAME PARAMS IS CLUMSY AND DUMB BUT LETS GET THIS WORKING FIRST THEN REDO IT.
     function PlayerLoseRound(computerSelection, playerSelection) {
-
         console.log("You lost! : COMPU : " + computerSelection + " YOU : " + playerSelection);
-
         score_Computer++;
-        GameCheck();
+        // GameCheck();
     }
 
     function PlayerWinRound(computerSelection, playerSelection) {
-
         console.log("You won! : COMPU : " + computerSelection + " YOU : " + playerSelection);
-
         score_Player++;
-        GameCheck();
-
+        // GameCheck();
     }
 
     function GameCheck() {
@@ -172,14 +169,25 @@ Feel free to create more “helper” functions if you think it would be useful.
     }
 </script>
 
-<h1> RPS. </h1>
+<style>
+    #player-buttons {
+        text-align: center;
+        border: 1px black;
+    }
+</style>
+
 
 <div id="player-buttons">
 
+
+    <h1> RPS. </h1>
+    <h3>Show Developer Tools for results.</h3>
+
+    <!-- 
     <button type="button" onclick="PlayerSelection('rock')">Rock</button>
     <button type="button" onclick="PlayerSelection('paper')">Paper</button>
-    <button type="button" onclick="PlayerSelection('scissors')">Scissors</button>
+    <button type="button" onclick="PlayerSelection('scissors')">Scissors</button> -->
 
-    <button type="button" onclick="Game()">Test Button</button>
+    <button type="button" onclick="Game()">Play A Round</button>
 
 </div>
