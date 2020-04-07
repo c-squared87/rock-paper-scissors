@@ -50,6 +50,7 @@ Feel free to create more “helper” functions if you think it would be useful.
     Add an event listener to the buttons that calls your playRound function with the correct playerSelection every time a button is clicked. 
     (you can keep the console.logs for this step)
 
+// TODO: CURRENT.
 Add a div for displaying results and change all of your console.logs into DOM methods.
 
 Display the running score, and announce a winner of the game once one player reaches 5 points.
@@ -69,6 +70,7 @@ Don’t forget to go back and add your new version to the original Rock Paper Sc
         score_Player = 0;
         score_Computer = 0;
 
+        SetTextInResultsField("Hello World, let us play a new game now.")
         // prompt('Enter "Rock", "Paper", or "Scissors" to play!');
 
     }
@@ -95,7 +97,7 @@ Don’t forget to go back and add your new version to the original Rock Paper Sc
 
     function PlayRound(computerSelection, playerSelection) {
 
-       // console.log(playerSelection);
+        // console.log(playerSelection);
 
         var _playerSelection = playerSelection;
 
@@ -117,6 +119,7 @@ Don’t forget to go back and add your new version to the original Rock Paper Sc
         // If same.
         if (computerSelection == _playerSelection) {
             console.log("tie");
+            SetTextInResultsField('You tied!');
             return;
         }
 
@@ -151,11 +154,13 @@ Don’t forget to go back and add your new version to the original Rock Paper Sc
 
     function PlayerLoseRound(computerSelection, playerSelection) {
         console.log("You lost! : COMPU : " + computerSelection + " YOU : " + playerSelection);
+        SetTextInResultsField("You lost! : COMPU : " + computerSelection + " YOU : " + playerSelection)
         score_Computer++;
     }
 
     function PlayerWinRound(computerSelection, playerSelection) {
         console.log("You won! : COMPU : " + computerSelection + " YOU : " + playerSelection);
+        SetTextInResultsField("You won! : COMPU : " + computerSelection + " YOU : " + playerSelection)
         score_Player++;
     }
 
@@ -179,10 +184,7 @@ Don’t forget to go back and add your new version to the original Rock Paper Sc
         });
 
 
-        // buttons.forEach((button) => {
-        //     button.addEventListener(PlayRound(ComputerPlay(), button.id));
-        // })
-
+        // THIS IS THE ORIGINAL 5 ROUND VERSION.
         // for (var i = 0; i < 5; i++) {
 
         //     let _input = prompt('What do you throw?', 'rock, paper, or scissors');
@@ -197,9 +199,14 @@ Don’t forget to go back and add your new version to the original Rock Paper Sc
         // DisplayFinalScore();
     }
 
+    function SetTextInResultsField(_stringToDisplay) {
+        document.getElementById('results-field').textContent = _stringToDisplay;
+    }
 
-
+    // DEPRECIATED FOR NOW.
     function DisplayFinalScore() {
+
+        return; // dont run below this line.
 
         var _str = "Player : " + score_Player + " Computer : " + score_Computer;
 
@@ -221,13 +228,26 @@ Don’t forget to go back and add your new version to the original Rock Paper Sc
         border: 1px black;
     }
 
+    #results {
+        border: solid black 1px;
+    }
+
+    #results-field {
+        text-align: center;
+    }
+
+
     h3 {
         text-align: center;
     }
 
     ul {
         list-style: none;
-        text-align: center;
+        /* text-align: center; */
+    }
+
+    ul#results-ul li {
+        display: inline;
     }
 </style>
 
@@ -236,11 +256,7 @@ Don’t forget to go back and add your new version to the original Rock Paper Sc
 
     <h1> RPS. </h1>
     <h3>Make Your Choice!</h3>
-    <!-- <h3>Show Developer Tools for results.</h3> -->
     <ul>
-        <!-- <li> <button type="button" onclick="PlayerSelection('rock')">Rock</button></li>
-        <li> <button type="button" onclick="PlayerSelection('paper')">Paper</button></li>
-        <li> <button type="button" onclick="PlayerSelection('scissors')">Scissors</button></li> -->
         <li> <button type="button" id="rock">Rock</button></li>
         <li> <button type="button" id="paper">Paper</button></li>
         <li> <button type="button" id='scissors'>Scissors</button></li>
@@ -248,4 +264,24 @@ Don’t forget to go back and add your new version to the original Rock Paper Sc
 
     <button type="button" onclick="Game()">Play A Round</button>
 
+</div>
+
+<div id="results">
+    <ul id="results-ul">
+        <li>
+            <div id="computer-score">
+                <p id="comp-score-field"> This is where the comp score will go. </p>
+            </div>
+        </li>
+        <li>
+            <div id="main-message">
+                <p id="results-field"> This is where the results will go. </p>
+            </div>
+        </li>
+        <li>
+            <div id="player-score">
+                <p id="player-score-field"> This is where the player score will go. </p>
+            </div>
+        </li>
+    </ul>
 </div>
