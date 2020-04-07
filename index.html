@@ -37,7 +37,30 @@ Feel free to re-work your previous functions if you need to. Specifically, you m
 Feel free to create more “helper” functions if you think it would be useful. 
 -->
 
+
+<!-- 
+
+>Go back to your “Rock Paper Scissors” game from a previous lesson and give it a simple UI so that the player can play the game by clicking on buttons rather than typing their answer in a prompt.
+
+>Copy your original code into a new file so you don’t lose it.
+
+>For now, remove the logic that plays exactly five rounds.
+
+>Create three buttons, one for each selection. 
+    Add an event listener to the buttons that calls your playRound function with the correct playerSelection every time a button is clicked. 
+    (you can keep the console.logs for this step)
+
+Add a div for displaying results and change all of your console.logs into DOM methods.
+
+Display the running score, and announce a winner of the game once one player reaches 5 points.
+
+You will likely have to refactor (rework/rewrite) your original code to make it work for this. That’s OK! Reworking old code is an important part of the programmer’s life.
+
+Don’t forget to go back and add your new version to the original Rock Paper Scissors Project! -->
+
 <script>
+    const buttons = document.querySelectorAll('button');
+
     var score_Player = 0;
     var score_Computer = 0;
 
@@ -48,7 +71,7 @@ Feel free to create more “helper” functions if you think it would be useful.
         score_Player = 0;
         score_Computer = 0;
 
-        prompt('Enter "Rock", "Paper", or "Scissors" to play!');
+        // prompt('Enter "Rock", "Paper", or "Scissors" to play!');
 
     }
 
@@ -74,56 +97,58 @@ Feel free to create more “helper” functions if you think it would be useful.
 
     function PlayRound(computerSelection, playerSelection) {
 
-        var _playerSelection = playerSelection;
+        console.log(playerSelection);
 
-        // Checks for valid input and catches typographical errors.
-        if (_playerSelection != 'rock' || _playerSelection != 'paper' || _playerSelection != 'scissors') {
+        // var _playerSelection = playerSelection;
 
-            if (_playerSelection.charAt(0) == 'r') {
-                _playerSelection = 'rock';
-            } else if (_playerSelection.charAt(0) == 'p') {
-                _playerSelection = 'paper';
-            } else if (_playerSelection.charAt(0) == 's') {
-                _playerSelection = 'scissors';
-            } else {
-                PlayerLoseRound(computerSelection, _playerSelection);
-            }
+        // // Checks for valid input and catches typographical errors.
+        // if (_playerSelection != 'rock' || _playerSelection != 'paper' || _playerSelection != 'scissors') {
 
-        }
+        //     if (_playerSelection.charAt(0) == 'r') {
+        //         _playerSelection = 'rock';
+        //     } else if (_playerSelection.charAt(0) == 'p') {
+        //         _playerSelection = 'paper';
+        //     } else if (_playerSelection.charAt(0) == 's') {
+        //         _playerSelection = 'scissors';
+        //     } else {
+        //         PlayerLoseRound(computerSelection, _playerSelection);
+        //     }
 
-        // If same.
-        if (computerSelection == _playerSelection) {
-            console.log("tie");
-            return;
-        }
+        // }
+
+        // // If same.
+        // if (computerSelection == _playerSelection) {
+        //     console.log("tie");
+        //     return;
+        // }
 
 
-        switch (_playerSelection) {
+        // switch (_playerSelection) {
 
-            case 'rock':
-                if (computerSelection == 'paper') {
-                    PlayerLoseRound(computerSelection, _playerSelection);
-                    return;
-                }
-                PlayerWinRound(computerSelection, _playerSelection);
-                return;
+        //     case 'rock':
+        //         if (computerSelection == 'paper') {
+        //             PlayerLoseRound(computerSelection, _playerSelection);
+        //             return;
+        //         }
+        //         PlayerWinRound(computerSelection, _playerSelection);
+        //         return;
 
-            case 'paper':
-                if (computerSelection == 'scissors') {
-                    PlayerLoseRound(computerSelection, _playerSelection);
-                    return;
-                }
-                PlayerWinRound(computerSelection, _playerSelection);
-                return;
+        //     case 'paper':
+        //         if (computerSelection == 'scissors') {
+        //             PlayerLoseRound(computerSelection, _playerSelection);
+        //             return;
+        //         }
+        //         PlayerWinRound(computerSelection, _playerSelection);
+        //         return;
 
-            case 'scissors':
-                if (computerSelection == 'rock') {
-                    PlayerLoseRound(computerSelection, _playerSelection);
-                    return;
-                }
-                PlayerWinRound(computerSelection, _playerSelection);
-                return;
-        }
+        //     case 'scissors':
+        //         if (computerSelection == 'rock') {
+        //             PlayerLoseRound(computerSelection, _playerSelection);
+        //             return;
+        //         }
+        //         PlayerWinRound(computerSelection, _playerSelection);
+        //         return;
+        // }
     }
 
     function PlayerLoseRound(computerSelection, playerSelection) {
@@ -140,16 +165,20 @@ Feel free to create more “helper” functions if you think it would be useful.
 
         InitNewGame();
 
-        for (var i = 0; i < 5; i++) {
+        buttons.forEach((button) => {
+            button.addEventListener(PlayRound(ComputerPlay(), playerSelection));
+        })
 
-            let _input = prompt('What do you throw?', 'rock, paper, or scissors');
+        // for (var i = 0; i < 5; i++) {
 
-            _input = _input.toLowerCase();
+        //     let _input = prompt('What do you throw?', 'rock, paper, or scissors');
 
-            // console.log("you typed " + _input);
+        //     _input = _input.toLowerCase();
 
-            PlayRound(ComputerPlay(), _input);
-        }
+        //     // console.log("you typed " + _input);
+
+        //     PlayRound(ComputerPlay(), _input);
+        // }
 
         DisplayFinalScore();
     }
@@ -177,19 +206,31 @@ Feel free to create more “helper” functions if you think it would be useful.
         text-align: center;
         border: 1px black;
     }
+
+    h3 {
+        text-align: center;
+    }
+
+    ul {
+        list-style: none;
+        text-align: center;
+    }
 </style>
 
 
 <div id="player-buttons">
 
-
     <h1> RPS. </h1>
-    <h3>Show Developer Tools for results.</h3>
-
-    <!-- 
-    <button type="button" onclick="PlayerSelection('rock')">Rock</button>
-    <button type="button" onclick="PlayerSelection('paper')">Paper</button>
-    <button type="button" onclick="PlayerSelection('scissors')">Scissors</button> -->
+    <h3>Make Your Choice!</h3>
+    <!-- <h3>Show Developer Tools for results.</h3> -->
+    <ul>
+        <!-- <li> <button type="button" onclick="PlayerSelection('rock')">Rock</button></li>
+        <li> <button type="button" onclick="PlayerSelection('paper')">Paper</button></li>
+        <li> <button type="button" onclick="PlayerSelection('scissors')">Scissors</button></li> -->
+        <li> <button type="button">Rock</button></li>
+        <li> <button type="button">Paper</button></li>
+        <li> <button type="button">Scissors</button></li>
+    </ul>
 
     <button type="button" onclick="Game()">Play A Round</button>
 
